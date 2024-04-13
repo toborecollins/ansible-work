@@ -1,0 +1,18 @@
+# syntax of git module for Deploying
+# ansible n2 -m git -a "repo=https://github.com/CeeyIT-Solutions/frontend3.git dest=/var/www/html" -b
+---
+- name: Deploy Web App
+  hosts: n2
+  become: yes
+
+  tasks:
+  - name: Install GIT
+    yum:
+      name: git 
+      state: present
+
+  - name: Host Code
+    git:
+      repo: https://github.com/CeeyIT-Solutions/food3.git
+      dest: /var/www/html/
+...      
