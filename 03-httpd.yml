@@ -1,0 +1,22 @@
+# ansible n2 -m yum "name=httpd state=present" -b
+---
+- name: Install HTTP server
+  hosts: n2
+  become: yes
+
+  tasks:
+  - name: Install HTTPD
+    yum:
+      name: httpd 
+      state: present
+
+  - name: Start Httpd
+    service:
+      name: httpd
+      state: started
+
+  - name: Enable Httpd
+    service:
+      name: httpd
+      enabled: yes  
+...      
