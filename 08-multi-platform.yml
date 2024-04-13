@@ -1,0 +1,78 @@
+---
+- name: Install HTTP server
+  hosts: g1
+  become: yes
+
+  tasks:
+  - name: Install HTTPD
+    dnf:
+      name: httpd 
+      state: present
+    when: ansible_distribution == "Amazon" 
+
+  - name: Start Httpd
+    service:
+      name: httpd
+      state: started
+    when: ansible_distribution == "Amazon" 
+
+  - name: Enable Httpd
+    service:
+      name: httpd
+      enabled: yes
+    when: ansible_distribution == "Amazon"  
+  
+  - name: Install Apache2
+    apt:
+      name: apache2
+      state: present
+    when: ansible_distribution == "Ubuntu" 
+
+  - name: Start Apache2
+    service:
+      name: apache2
+      state: started
+    when: ansible_distribution == "Ubuntu" 
+
+  - name: Enable Apache2
+    service:
+      name: apache2
+      enabled: yes 
+    when: ansible_distribution == "Ubuntu" 
+
+  - name: Install HTTPD on Centos
+    yum:
+      name: httpd
+      state: present
+    when: ansible_distribution == "Centos" 
+
+  - name: Start Httpd on Centos
+    service:
+      name: httpd
+      state: started
+    when: ansible_distribution == "Centos"  
+
+  - name: Enable Httpd on Centos
+    service:
+      name: httpd
+      enabled: yes 
+    when: ansible_distribution == "centos" 
+
+  - name: Install HTTPD on Window
+    win_package:
+      product_id: httpd
+      state: present
+    when: ansible_distribution == "Window" 
+
+  - name: Start Httpd on Window
+    service:
+      product_id: httpd
+      state: started
+    when: ansible_distribution == "Window"  
+
+  - name: Enable Httpd on Window
+    service:
+      product_id: httpd
+      enabled: yes 
+    when: ansible_distribution == "Window" 
+...         
